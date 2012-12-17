@@ -10,6 +10,7 @@ var require = {
 		'backbone': 'lib/backbone-0.9.9',
 		'underscore': 'lib/underscore-1.4.3',
 		'css': 'lib/require/css',
+		'css-builder': 'lib/require/css-builder',
 		'normalize': 'lib/require/normalize',
 		'linkedin': 'http://platform.linkedin.com/in.js?async=true',
 		'dust': 'lib/dust-full-1.1.1',
