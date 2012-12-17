@@ -10,6 +10,7 @@ define (require)->
 	require 'jquery/isotope'
 	require 'jquery/adipoli'
 	require 'jquery/fancybox'
+	require 'bootstrap/tab'
 	B = require 'backbone'
 	# Needed variables
 	$logo = $('#logo')
@@ -41,7 +42,6 @@ define (require)->
 		animationSpeed: 600
 		tabs: '.tmenu'
 		tabActiveClass: 'active'
-
 	
 	# Hover menu effect
 	$content.find('.tabs li a').hover (->
@@ -161,3 +161,24 @@ define (require)->
 	$('.bg-switcher').click ->
 		bgNumber = $(this).attr('value')
 		$('body').css 'background-image', 'url(images/bg' + bgNumber + '.png)'
+
+	Router = B.Router.extend
+		# Backbone.js Routes
+		routes:
+			profile1: 'profile'
+			portfolio1: 'portfolio'
+			resume1: 'resume'
+			portfolio1: 'contact'
+			'*notFound': 'profile'
+		initialize: ->
+			console.log 'init', arguments
+			B.history.start()
+		profile: ->
+			console.log 'profile', arguments
+		portfolio: ->
+			
+		resume: ->
+			#$content.easytabs('select', '#resume');
+		contact: ->
+			
+	new Router()
