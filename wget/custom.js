@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){ 
+(function(){ 
 	
 	/* ---------------------------------------------------------------------- */
 	/*	Custom Functions
@@ -159,4 +159,4 @@ jQuery(document).ready(function(){
 			$('body').css("background-image","url(images/bg"+bgNumber+".png)");
 		});
 
-});	
+})();
