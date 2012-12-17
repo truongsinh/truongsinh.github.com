@@ -4,6 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"connect": "",
+		"less": "",
 		"connect-assets": "git://github.com/truongsinh/connect-assets.git"
 	}
 }

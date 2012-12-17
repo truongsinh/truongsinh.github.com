@@ -11,7 +11,7 @@ app.use (req, res, next)->
 		if req.url.substr(-3) is '.js'
 			asset.js req.url.substr(5)
 		else if req.url.substr(-4) is '.css'
-			asset.css req.url.substr(5)
+			console.log asset.css req.url.substr(5)
 	next()
 app.use connectAssets
 	src: path.join __dirname, '..'
