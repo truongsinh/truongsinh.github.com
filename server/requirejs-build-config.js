@@ -18,7 +18,7 @@ module.exports = {
 	//is not explicitly set, then all modules are loaded relative to
 	//the directory that holds the build file. If appDir is set, then
 	//baseUrl should be specified as relative to the appDir.
-	//baseUrl: 'js',
+	baseUrl: '.',
 
 	//By default all the configuration for optimization happens from the command
 	//line or by properties in the config file, and configuration that was

@@ -4,8 +4,6 @@ define (require)->
 	#	Custom Functions
 	#	/* ---------------------------------------------------------------------- 
 	$ = require 'jquery'
-	
-	require 'css!./style'
 	require 'jquery/isotope'
 	require 'jquery/adipoli'
 	require 'jquery/fancybox'
@@ -145,29 +143,31 @@ define (require)->
 	Router = B.Router.extend
 		# Backbone.js Routes
 		routes:
-			':page': 'changePage'
 			':page/:subpage': 'changePage'
+			'*notFound': 'changePage'
 		pageMap:
-			'profile': new page.profile().$el.appendTo($content)
 			'portfolio': new page.portfolio().$el.appendTo($content)
 			'resume': new page.resume().$el.appendTo($content)
 			'contact': new page.contact().$el.appendTo($content)
+			'profile': new page.profile().$el.appendTo($content)
 		transitionDuration: 'normal'
 		transitionPropertySet:
 			height: 'toggle'
 			padding: 'toggle'
 		initialize: ->
-			console.log @pageMap.profile[0]
-			$('#content > div').animate @transitionPropertySet, 0, ()->
-				$('body').show()
+			$('#content > div')
+				.hide(0)
+				.promise().done(->
+					$('body').show()
+					B.history.start()
+				)
 		changePage: (page,subpage)->
 			page = 'profile' unless page of @pageMap
 			show = =>
 				@activePage = @pageMap[page]
-				@activePage.animate @transitionPropertySet, @transitionDuration
+				@activePage.stop().slideDown @transitionDuration
 			if @activePage
-				@activePage.animate @transitionPropertySet, @transitionDuration, show
+				@activePage.stop().slideUp @transitionDuration, show
 			else
 				show()
 	new Router()
-	$ B.history.start()
