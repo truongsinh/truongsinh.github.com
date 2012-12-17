@@ -181,7 +181,7 @@ define(['require', './normalize'], function(req, normalize) {
       var normalizeParts = req.toUrl('css').substr(baseUrl.length - 1).split('/');
       normalizeParts[normalizeParts.length - 1] = 'normalize';
       var normalizeName = normalizeParts.join('/');
-      
+      normalizeName = './normalize'
       //the code below overrides async require functionality to ensure instant layer css injection
       //it then runs normalization and injection
       //normalization is based on determining the absolute pathname of the html page
@@ -189,13 +189,8 @@ define(['require', './normalize'], function(req, normalize) {
       //normalization is then performed from the absolute baseurl to the absolute pathname
       write(''
         + 'for (var c in requirejs.s.contexts) { requirejs.s.contexts[c].nextTick = function(f){f()} } \n'
-        + 'require([\'css\', \'' + normalizeName + '\', \'require\'], function(css, normalize, require) { \n'
-        + 'var pathname = window.location.pathname.split(\'/\'); \n'
-        + 'pathname.pop(); \n'
-        + 'pathname = pathname.join(\'/\') + \'/\'; \n'
-        + 'var baseUrl = require.toUrl(\'.\'); \n'
-        + 'baseUrl = normalize.convertURIBase(baseUrl, pathname, \'/\'); \n'
-        + 'css.inject(normalize(\'' + css + '\', baseUrl, pathname)); \n'
+        + 'require([\'css\', \'require\'], function(css, require) { \n'
+        + 'css.inject(\'' + css + '\'); \n'
         + '}); \n'
         + 'for (var c in requirejs.s.contexts) { requirejs.s.contexts[c].nextTick = requirejs.nextTick; } \n'
       );
