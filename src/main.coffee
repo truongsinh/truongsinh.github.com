@@ -6,16 +6,19 @@ define (require)->
 	$ = require 'jquery'
 	
 	require 'css!./style'
-	require 'jquery/easytabs'
 	require 'jquery/isotope'
 	require 'jquery/adipoli'
 	require 'jquery/fancybox'
-	require 'bootstrap/tab'
 	B = require 'backbone'
+	page =
+		profile: require 'page/profile/main'
+		portfolio: require 'page/portfolio/main'
+		resume: require 'page/resume/main'
+		contact: require 'page/contact/main'
 	# Needed variables
 	$logo = $('#logo')
 	
-	# Show logo 
+	### Show logo 
 	$('.tab-resume,.tab-portfolio,.tab-contact').click ->
 		$logo.fadeIn 'slow'
 
@@ -23,7 +26,7 @@ define (require)->
 	# Hide logo
 	$('.tab-profile').click ->
 		$logo.fadeOut 'slow'
-
+	###
 	
 	# ---------------------------------------------------------------------- 
 	
@@ -32,16 +35,6 @@ define (require)->
 	
 	# Needed variables
 	$content = $('#content')
-	
-	# Run easytabs
-	$content.easytabs
-		animate: true
-		updateHash: false
-		transitionIn: 'slideDown'
-		transitionOut: 'slideUp'
-		animationSpeed: 600
-		tabs: '.tmenu'
-		tabActiveClass: 'active'
 	
 	# Hover menu effect
 	$content.find('.tabs li a').hover (->
@@ -139,19 +132,6 @@ define (require)->
 
 		false
 
-	
-	# ---------------------------------------------------------------------- 
-	
-	#	Google Maps
-	#	/* ---------------------------------------------------------------------- 
-	
-	# Needed variables
-	$map = $('#map')
-	$tabContactClass = ('tab-contact')
-	$address = 'Level 13, 2 Elizabeth St, Melbourne Victoria 3000 Australia'
-	$content.bind 'easytabs:after', (evt, tab, panel) ->
-		console.log 'developing'
-
 
 	
 	# ---------------------------------------------------------------------- 
@@ -165,20 +145,29 @@ define (require)->
 	Router = B.Router.extend
 		# Backbone.js Routes
 		routes:
-			profile1: 'profile'
-			portfolio1: 'portfolio'
-			resume1: 'resume'
-			portfolio1: 'contact'
-			'*notFound': 'profile'
+			':page': 'changePage'
+			':page/:subpage': 'changePage'
+		pageMap:
+			'profile': new page.profile().$el.appendTo($content)
+			'portfolio': new page.portfolio().$el.appendTo($content)
+			'resume': new page.resume().$el.appendTo($content)
+			'contact': new page.contact().$el.appendTo($content)
+		transitionDuration: 'normal'
+		transitionPropertySet:
+			height: 'toggle'
+			padding: 'toggle'
 		initialize: ->
-			console.log 'init', arguments
-			B.history.start()
-		profile: ->
-			console.log 'profile', arguments
-		portfolio: ->
-			
-		resume: ->
-			#$content.easytabs('select', '#resume');
-		contact: ->
-			
+			console.log @pageMap.profile[0]
+			$('#content > div').animate @transitionPropertySet, 0, ()->
+				$('body').show()
+		changePage: (page,subpage)->
+			page = 'profile' unless page of @pageMap
+			show = =>
+				@activePage = @pageMap[page]
+				@activePage.animate @transitionPropertySet, @transitionDuration
+			if @activePage
+				@activePage.animate @transitionPropertySet, @transitionDuration, show
+			else
+				show()
 	new Router()
+	$ B.history.start()

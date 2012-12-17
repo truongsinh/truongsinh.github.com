@@ -1,0 +1,30 @@
+<!-- About section -->
+<div class="about">
+	<div class="photo-inner"><img src="{about.img}" height="186" width="153" />
+	</div>
+	<h1>{vcard.Name}</h1>
+	<h3>{about.Title}</h3>
+	<p>
+		{about.Description}
+	</p>
+</div>
+<!-- /About section -->
+
+<!-- Personal info section -->
+<ul class="personal-info">
+	{#vcard}
+	<li>
+		<label>Name</label><span>{Name}</span>
+	</li>
+	<li>
+		<label>Email</label><span>{Email}</span>
+	</li>
+	<li>
+		<label>Phone</label><span>{Phone}</span>
+	</li>
+	<li>
+		<label>Website</label><span>{Website}</span>
+	</li>
+	{/vcard}
+</ul>
+<!-- /Personal info section -->

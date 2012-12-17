@@ -11,11 +11,12 @@ app.use (req, res, next)->
 		if req.url.substr(-3) is '.js'
 			asset.js req.url.substr(5)
 		else if req.url.substr(-4) is '.css'
-			console.log asset.css req.url.substr(5)
+			asset.css req.url.substr(5)
 	next()
 app.use connectAssets
 	src: path.join __dirname, '..'
 	helperContext: asset
+	buildDir: 'build-connect'
 asset.js.root = 'src'
 asset.css.root = 'src'
 
