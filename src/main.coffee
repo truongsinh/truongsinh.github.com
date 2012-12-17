@@ -10,7 +10,7 @@ define (require)->
 	require 'jquery/isotope'
 	require 'jquery/adipoli'
 	require 'jquery/fancybox'
-	
+	B = require 'backbone'
 	# Needed variables
 	$logo = $('#logo')
 	

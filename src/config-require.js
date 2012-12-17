@@ -7,6 +7,8 @@ var require = {
 		'jquery/adipoli/style': 'lib/jquery/adipoli/adipoli-2.0.beta',
 		'jquery/fancybox': 'lib/jquery/fancybox/fancybox-2.1.3',
 		'jquery/fancybox/style': 'lib/jquery/fancybox/fancybox-2.1.3',
+		'backbone': 'lib/backbone-0.9.9',
+		'underscore': 'lib/underscore-1.4.3',
 		'css': 'lib/require/css',
 		'normalize': 'lib/require/normalize',
 	},
@@ -29,6 +31,13 @@ var require = {
 		'jquery/fancybox': {
 			deps: ['jquery', 'css!jquery/fancybox/style'],
 			exports: 'jQuery.fn.fancybox',
+		},
+		'underscore': {
+			exports: '_',
+		},
+		'backbone': {
+			deps: ['jquery', 'underscore'],
+			exports: 'Backbone',
 		},
 		
 	},
